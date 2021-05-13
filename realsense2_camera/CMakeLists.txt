@@ -83,6 +83,10 @@ if(SET_USER_BREAK_AT_STARTUP)
 	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DBPDEBUG")
 endif()
 
+if(WIN32)
+  set(OpenCV_DIR C:/opt/ros/$ENV{ROS_DISTRO}/x64/share/opencv)
+  set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake/Modules/" ${CMAKE_MODULE_PATH})
+endif()
 
 find_package(ament_cmake REQUIRED)
 find_package(builtin_interfaces REQUIRED)
@@ -134,6 +138,9 @@ else()
   message(FATAL_ERROR "Unsupported ROS Distribution: " "$ENV{ROS_DISTRO}")
 endif()
 
+if(WIN32)
+  add_definitions(-D_USE_MATH_DEFINES)
+endif()
 
 add_library(${PROJECT_NAME} SHARED
     include/constants.h
